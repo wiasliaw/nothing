@@ -2,5 +2,10 @@
 
 [default]
 src = 'src'
-out = 'out'
+test = 'test'
+out = 'dist'
 libs = ['lib']
+
+[example]
+src = 'example_simple'
+test = 'example_simple'
