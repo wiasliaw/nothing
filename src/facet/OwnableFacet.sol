@@ -1,20 +1,20 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.0;
 
-import {IOwnableFacet} from "../interface/IOwnableFacet.sol";
-import {LibOwnable} from "../library/LibOwnable.sol";
+import {AOwnable} from "../abstract/AOwnable.sol";
 
-contract OwnableFacet is IOwnableFacet {
-    function init(address _newOwner) external {
-        LibOwnable.init(_newOwner);
-    }
+interface IOwnableFacet {
+    function owner() external view returns (address);
 
+    function transferOwnership(address newOwner) external;
+}
+
+contract OwnableFacet is IOwnableFacet, AOwnable {
     function owner() external view returns (address) {
-        return LibOwnable.owner();
+        return _owner();
     }
 
-    function transferOwnership(address _newOwner) external {
-        LibOwnable.onlyOwner();
-        LibOwnable.transferOwnership(_newOwner);
+    function transferOwnership(address newOwner) external onlyOwner {
+        _transferOwnership(newOwner);
     }
 }
