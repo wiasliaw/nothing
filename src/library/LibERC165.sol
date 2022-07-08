@@ -1,45 +1,30 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.0;
 
-import {Address} from "openzeppelin-contracts/contracts/utils/Address.sol";
-
 library LibERC165 {
-    using Address for address;
+    bytes32 private constant STORAGE_POSITION =
+        keccak256("diamond.erc165.storage");
 
-    /// @dev storage position
-    bytes32 private constant _STORAGE_POSITION =
-        keccak256("facet.erc165.storage");
-
-    /** ***** ***** ***** ***** *****
-     * struct
-     ***** ***** ***** ***** ***** */
     struct ERC165Storage {
         mapping(bytes4 => address) supported;
     }
 
-    /** ***** ***** ***** ***** *****
-     * private function
-     ***** ***** ***** ***** ***** */
     function _storage() private pure returns (ERC165Storage storage s) {
-        bytes32 position = _STORAGE_POSITION;
+        bytes32 position = STORAGE_POSITION;
         assembly {
             s.slot := position
         }
     }
 
-    /** ***** ***** ***** ***** *****
-     * internal function
-     ***** ***** ***** ***** ***** */
-    function setInterfaceId(address _facet, bytes4 _interfaceId) internal {
-        require(_facet.isContract(), "LibERC165: not a contract");
+    function _setInterfaceId(address _facet, bytes4 _interfaceId) internal {
         _storage().supported[_interfaceId] = _facet;
     }
 
-    function unsetInterfaceId(bytes4 _interfaceId) internal {
+    function _unsetInterfaceId(bytes4 _interfaceId) internal {
         delete _storage().supported[_interfaceId];
     }
 
-    function supportsInterface(bytes4 _interfaceId)
+    function _supportsInterface(bytes4 _interfaceId)
         internal
         view
         returns (bool)
@@ -47,7 +32,7 @@ library LibERC165 {
         return _storage().supported[_interfaceId] != address(0);
     }
 
-    function supportsBy(bytes4 _interfaceId) external view returns (address) {
+    function _supportsBy(bytes4 _interfaceId) internal view returns (address) {
         return _storage().supported[_interfaceId];
     }
 }
