@@ -2,7 +2,7 @@ all:; forge build
 
 install:; forge install
 
-test:; forge test
+test:; forge test -vvvv
 
 example:; FOUNDRY_PROFILE=example forge test -vvvv
 

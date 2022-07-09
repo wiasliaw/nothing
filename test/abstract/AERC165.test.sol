@@ -1,7 +1,7 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.0;
 
-import "../../lib/forge-std/src/Test.sol";
+import "forge-std/Test.sol";
 import {AERC165} from "../../src/abstract/AERC165.sol";
 
 contract TestAERC165 is Test, AERC165 {
@@ -9,11 +9,11 @@ contract TestAERC165 is Test, AERC165 {
     bytes4 private constant testInterfaceId =  hex"12345678";
 
     function setUp() public {
-        AERC165.setInterfaceId(testAddress, testInterfaceId);
+        AERC165._setInterfaceId(testAddress, testInterfaceId);
     }
 
     function testSupports() public {
-        assertTrue(AERC165.supportsInterface(testInterfaceId));
-        assertEq(AERC165.supportsBy(testInterfaceId), testAddress);
+        assertTrue(AERC165._supportsInterface(testInterfaceId));
+        assertEq(AERC165._supportsBy(testInterfaceId), testAddress);
     }
 }

@@ -1,7 +1,7 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.0;
 
-import "../../lib/forge-std/src/Test.sol";
+import "forge-std/Test.sol";
 import {ALookup, LibLookup} from "../../src/abstract/ALookup.sol";
 
 contract TestALookupTable is Test, ALookup {
@@ -13,10 +13,10 @@ contract TestALookupTable is Test, ALookup {
 
         vm.expectEmit(true, true, true, true);
         emit LibLookup.SetFacet(testAddress, testSelectors);
-        setFacet(testAddress, testSelectors);
+        _setFacet(testAddress, testSelectors);
 
-        assertEq(lookup(hex"11111111").addr, testAddress);
-        assertEq(lookup(hex"22222222").addr, testAddress);
-        assertEq(lookup(hex"33333333").addr, address(0));
+        assertEq(_lookup(hex"11111111").addr, testAddress);
+        assertEq(_lookup(hex"22222222").addr, testAddress);
+        assertEq(_lookup(hex"33333333").addr, address(0));
     }
 }
