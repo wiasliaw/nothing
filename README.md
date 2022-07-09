@@ -1,13 +1,27 @@
 # nothing
 
-Inspired by [Diamond](https://eips.ethereum.org/EIPS/eip-2535)
+Inspired by [Diamond](https://eips.ethereum.org/EIPS/eip-2535). Composable Utilities for build Facets.
 
 ## development
 
-- Develop by [forge](https://book.getfoundry.sh/getting-started/installation.html)
+- Develop by [Foundry](https://book.getfoundry.sh/getting-started/installation.html)
 - Script with `Makefile`
 
-### run example
+### Compile
+
+```sh
+make
+```
+
+### Test
+
+```sh
+make test
+```
+
+### Example
+
+Run example for the simple usage.
 
 ```bash
 make example
